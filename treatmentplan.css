@@ -1,0 +1,23 @@
+.treatmentplan-container {
+  display: flex;
+  gap: 60px;
+}
+
+@media (max-width: 880px) {
+  .treatmentplan-container {
+    flex-direction: column;
+  }
+  .treatmentplan-container input,
+  textarea {
+    height: 300px;
+    background-color: white;
+    font-size: xx-large;
+  }
+}
+
+.treatmentplan-container input,
+textarea {
+  height: 557px;
+  background-color: white;
+  font-size: xx-large;
+}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup</title>
+    <link rel="stylesheet" href="./signup.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="signupContainer">
+      <div class="logoimg"><img src="./imges/logo.png" alt="" /></div>
+      <div class="signupForm">
+        <form id="signupForm">
+          <h2>Sign Up to Symptom AI</h2>
+          <div class="signupFormFields">
+            <div>
+              <label for="fName">First Name</label>
+              <div>
+                <input type="text" name="fName" id="fName" />
+              </div>
+            </div>
+            <div>
+              <label for="lName">Last Name</label>
+              <div>
+                <input type="text" name="lName" id="lName" />
+              </div>
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <div>
+                <i class="ri-mail-line"></i>
+                <input type="email" name="email" id="email" />
+              </div>
+            </div>
+            <div>
+              <label for="phone">Phone Number</label>
+              <div>
+                <i class="ri-phone-line"></i>
+                <input type="phone" name="phone" id="phone" />
+              </div>
+            </div>
+            <div>
+              <label for="uName">Username</label>
+              <div>
+                <i class="ri-user-3-fill"></i>
+                <input type="text" name="uName" id="uName" />
+              </div>
+            </div>
+            <div>
+              <label for="password">Password</label>
+              <div class="password-wrap">
+                <i class="ri-lock-fill"></i>
+                <input
+                  type="password"
+                  class="password-input"
+                  name="password"
+                  id="password"
+                />
+                <i
+                  class="ri-eye-off-line"
+                  id="togglePassword"
+                  onclick="togglePasswordVisibility()"
+                ></i>
+              </div>
+            </div>
+          </div>
+          <div class="passwordConditions">
+            <ul>
+              <li>Use 12 or more characters</li>
+              <li>One Uppercase character</li>
+              <li>One lowercase character</li>
+              <li>One special character</li>
+            </ul>
+          </div>
+          <div class="signupBtn">
+            <button type="submit">Sign Up</button>
+          </div>
+          <div class="loginNav">
+            <p>
+              Already have an account? <b><a href="./login.html">Log in</a></b>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Select the form element
+        const form = document.getElementById("signupForm");
+
+        // Add event listener for form submission
+        form.addEventListener("submit", function (event) {
+          // Prevent the default form submission behavior
+          event.preventDefault();
+
+          // Get form data
+          const formData = new FormData(form);
+
+          // Check for empty fields
+          let hasEmptyField = false;
+          formData.forEach((value, key) => {
+            if (!value.trim()) {
+              alert(`Please fill in ${key} field.`);
+              hasEmptyField = true;
+            }
+          });
+
+          if (hasEmptyField) {
+            return; // Stop form submission
+          }
+
+          // Create an object to store form data
+          const formDataObject = {
+            firstname: formData.get("fName"),
+            lastname: formData.get("lName"),
+            email: formData.get("email"),
+            password: formData.get("password"),
+            username: formData.get("uName"),
+            PhoneNo: formData.get("phone"),
+          };
+
+          const password = formData.get("password");
+          if (
+            password.length < 12 ||
+            !/[!@#$%^&*(),.?":{}|<>]/.test(password)
+          ) {
+            // Password does not meet the criteria
+            alert(
+              "Password must be at least 12 characters long and contain at least one special character and One upper Case Letter."
+            );
+            return;
+          }
+          // Make a POST request to register endpoint
+          fetch("http://localhost:3000/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formDataObject),
+          })
+            .then((response) => {
+              if (response.ok) {
+                // Registration successful
+                alert("Registration successful! You can now log in.");
+                // Redirect to login page
+                window.location.href = "./login.html";
+                // Assuming login page is named login.html
+              } else {
+                // Registration failed
+                response
+                  .json()
+                  .then((data) => {
+                    if (data.error === "User already exists") {
+                      alert("User already exists. Please log in instead.");
+                      // Redirect to login page
+                      window.location.href = "./login.html";
+                    } else {
+                      alert("Registration failed. Please try again.");
+                    }
+                  })
+                  .catch((error) => {
+                    console.error("Error:", error);
+                    alert("An error occurred. Please try again later.");
+                  });
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert("An error occurred. Please try again later.");
+            });
+        });
+      });
+      function togglePasswordVisibility() {
+        const passwordField = document.getElementById("password");
+        const toggleIcon = document.getElementById("togglePassword");
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+          toggleIcon.classList.remove("ri-eye-off-line");
+          toggleIcon.classList.add("ri-eye-line");
+        } else {
+          passwordField.type = "password";
+          toggleIcon.classList.remove("ri-eye-line");
+          toggleIcon.classList.add("ri-eye-off-line");
+        }
+      }
+    </script>
+  </body>
+</html>

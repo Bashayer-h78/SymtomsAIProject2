@@ -1,0 +1,173 @@
+<html></html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="welcome.css" />
+  <link rel="stylesheet" href="symptoms.css" />
+  <link rel="stylesheet" href="editpage.css" />
+  <link rel="stylesheet" href="patientinfo.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+  />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Unicons CDN Link for Icons -->
+  <link
+    rel="stylesheet"
+    href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css"
+  />
+</head>
+<body>
+  <div class="welcome-page">
+    <div class="welcome-navbar">
+      <h2 class="welcome-logo">
+        <b>Symptoms AI</b>
+      </h2>
+      <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+      <label for="menu-toggle" class="hamburger"> ☰ </label>
+      <div class="welcome-nav">
+        <a href="./homepage.html" class="nav-home"><b>Home</b></a>
+        <a href="/welcome.html">Dashboard</a>
+        <a href="/welcome.html">
+          <img src="/images/profile.png" alt="profile" class="profile-img" />
+        </a>
+      </div>
+    </div>
+
+    <div class="form-container-edit">
+      <h2>Patient Information</h2>
+
+      <form id="patientForm">
+        <div class="form-group-input">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" name="firstName" required />
+        </div>
+
+        <div class="form-group-input">
+          <label for="address">Address</label>
+          <input type="text" id="address" name="address" />
+        </div>
+        <div class="form-group-input">
+          <label for="contactNumber">Contact Number</label>
+          <input type="text" id="contactNumber" name="contactNumber" />
+        </div>
+        <div class="form-group-edit">
+          <div class="form-group-input">
+            <label for="idNumber">ID Number</label>
+            <input
+              type="text"
+              id="idNumber"
+              name="idNumber"
+              placeholder="1212121221"
+            />
+          </div>
+          <div class="form-group-input">
+            <label for="placeOfBirth">Date of Birth</label>
+            <input
+              type="date"
+              id="placeOfBirth"
+              name="placeOfBirth"
+              placeholder="makkah"
+            />
+          </div>
+        </div>
+        <div class="form-control-container">
+          <div class="form-left">
+            <div class="gender">
+              <label>Gender:</label>
+              <div class="radio-control">
+                <input type="radio" id="male" name="gender" value="male" />
+                <label for="male">Male</label>
+              </div>
+              <div class="radio-control">
+                <input type="radio" id="female" name="gender" value="female" />
+                <label for="female">Female</label>
+              </div>
+            </div>
+            <div class="status-container">
+              <label for="status">Status:</label>
+              <select id="status" name="status">
+                <option value="">Select Status</option>
+                <option value="single">Single</option>
+                <option value="married">Married</option>
+                <option value="divorced">Divorced</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-right">
+            <h4>Medical History:</h4>
+            <div class="checkbox-container">
+              <input
+                type="checkbox"
+                id="heartProblems"
+                name="medicalHistory"
+                value="Heart problems"
+              />
+              <label for="heartProblems">Heart problems</label>
+            </div>
+            <div class="checkbox-container">
+              <input
+                type="checkbox"
+                id="bloodClots"
+                name="medicalHistory"
+                value="Blood clots"
+              />
+              <label for="bloodClots">Blood clots</label>
+            </div>
+            <div class="checkbox-container">
+              <input
+                type="checkbox"
+                id="bloodPressure"
+                name="medicalHistory"
+                value="Blood pressure"
+              />
+              <label for="bloodPressure">Blood pressure</label>
+            </div>
+
+            <div class="checkbox-container">
+              <input
+                type="checkbox"
+                id="cholesterol"
+                name="medicalHistory"
+                value="High cholesterol"
+              />
+              <label for="cholesterol">High cholesterol</label>
+            </div>
+            <div class="checkbox-container">
+              <input
+                type="checkbox"
+                id="stdHiv"
+                name="medicalHistory"
+                value="STD/HIV"
+              />
+              <label for="stdHiv">STD/HIV</label>
+            </div>
+            <div class="checkbox-container">
+              <input
+                type="checkbox"
+                id="surgeries"
+                name="medicalHistory"
+                value="Any surgeries"
+              />
+              <label for="surgeries">Any surgeries</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" id="cancel-btn">Cancel</button>
+          <button type="submit" id="save-btn">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="/js/patientinfo.js"></script>
+</body>

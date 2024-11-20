@@ -1,0 +1,343 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="welcome.css" />
+    <link rel="stylesheet" href="symptoms.css" />
+    <link rel="stylesheet" href="editpage.css" />
+    <link rel="stylesheet" href="diagnoseresult.css" />
+    <link rel="stylesheet" href="treatmentplan.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500,600,700&display=swap"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Unicons CDN Link for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css"
+    />
+    <!-- Include jsPDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  </head>
+  <body>
+    <div class="welcome-page">
+      <div class="welcome-navbar">
+        <h2 class="welcome-logo">
+          <b>Symptoms AI</b>
+        </h2>
+        <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+        <label for="menu-toggle" class="hamburger"> ☰ </label>
+        <div class="welcome-nav">
+          <a href="./homepage.html" class="nav-home"><b>Home</b></a>
+          <a href="/welcome.html">Dashboard</a>
+          <a href="/welcome.html">
+            <img src="/images/profile.png" alt="profile" class="profile-img" />
+          </a>
+        </div>
+      </div>
+      <!--   DIGNOSE RESULT -->
+      <div class="diagnose-container">
+        <h2 class="diagnose-heading">Treatment Plan</h2>
+        <div class="treatmentplan-container">
+          <div class="dignose-input-container">
+            <label>Enter the required treatment plan:</label>
+            <textarea
+              id="plan"
+              style="resize: none"
+              rows="4"
+              cols="30"
+              spellcheck="false"
+            ></textarea>
+          </div>
+
+          <div class="dignose-input-container">
+            <label>Patient History :</label>
+            <textarea
+              style="resize: none"
+              disabled
+              id="history"
+              rows="4"
+              cols="30"
+              spellcheck="false"
+            ></textarea>
+          </div>
+        </div>
+        <div class="dignose-input-container">
+          <div class="form-actions-diagnose">
+            <button type="submit" id="confirm-btn" onclick="handleConfirm()">
+              Save
+            </button>
+            <button type="button" id="print-btn">Print</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.onload = function () {
+        const url = `http://localhost:3000/patient_history/${sessionStorage.getItem(
+          "patient_id"
+        )}`;
+        fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`Error: ${response.statusText}`);
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Patient History:", data);
+            const diseaseList = data.diseases;
+
+            // Set the input field value to the diseases joined by commas
+            document.getElementById("history").value = diseaseList.join("\n");
+          })
+          .catch((error) => {
+            console.error("Failed to fetch user data:", error);
+          });
+      };
+
+      function handleConfirm() {
+        const text = document.getElementById("plan").value.trim();
+        if (text == "") {
+          alert("Please enter treatment plan");
+        } else {
+          fetch("http://localhost:3000/patient_plan", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              id: sessionStorage.getItem("patient_id"),
+              plan: text,
+            }),
+          })
+            .then((response) => {
+              if (response.ok) {
+                response.json().then((data) => {
+                  alert("Treatment plan saved successfully.");
+                  console.log(data, "DATA");
+                });
+              } else {
+                // Handle error responses
+                response.json().then((data) => {
+                  alert(
+                    "Failed to save medical history. " +
+                      (data.error || "Please try again.")
+                  );
+                });
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert("An error occurred. Please try again later.");
+            });
+        }
+      }
+
+      const printBtn = document.getElementById("print-btn");
+      printBtn.addEventListener("click", function () {
+        const urlPatient = `http://localhost:3000/patient/${sessionStorage.getItem(
+          "patient_id"
+        )}`;
+        fetch(urlPatient, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`Error: ${response.statusText}`);
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Patient :", data);
+            generatePDF(data);
+          })
+          .catch((error) => {
+            console.error("Failed to fetch user data:", error);
+          });
+      });
+      function generatePDF(patientData) {
+        if (!patientData) {
+          console.error("Patient data is undefined");
+          alert("Failed to generate PDF: Patient data is missing.");
+          return;
+        }
+
+        console.log("Generating PDF for patient:", patientData);
+        const { jsPDF } = window.jspdf;
+
+        const doc = new jsPDF();
+
+        // Set theme colors
+        const darkSlateGray = "#0e3c61";
+        const gray = "#04121c";
+        const white = "#fff";
+
+        // Header height
+        const headerHeight = 40;
+
+        // Add background for header
+        doc.setFillColor(darkSlateGray);
+        doc.rect(0, 0, doc.internal.pageSize.width, headerHeight, "F");
+
+        // Add logo
+        const logoWidth = 30; // Adjust as needed
+        const logoHeight = 30; // Adjust as needed
+        const logoX = (doc.internal.pageSize.width - logoWidth) / 2;
+        const logoY = 5;
+
+        // Load the image
+        const img = new Image();
+        img.onload = function () {
+          doc.addImage(img, "PNG", logoX, logoY, logoWidth, logoHeight);
+
+          // Add "Symptoms AI" text below the logo
+          doc.setTextColor(white);
+          doc.setFontSize(16);
+          doc.setFont("helvetica", "bold");
+
+          // Continue with the rest of the PDF generation
+          generateRestOfPDF();
+        };
+        img.src = "./images/logo.png"; // Update this path to your logo's location
+
+        function generateRestOfPDF() {
+          // Reset text color for body
+          doc.setTextColor(gray);
+
+          let yPos = headerHeight + 10; // Start content after the header
+
+          // Add "Doctor Information" heading
+          doc.setFontSize(14);
+          doc.setFont("helvetica", "bold");
+          doc.text("Doctor Information", 20, yPos);
+          yPos += 10;
+
+          // Add doctor name and date
+          doc.setFontSize(12);
+          doc.setFont("helvetica", "normal");
+          const doctorName = `Dr. ${patientData?.user?.DoctorFname || ""} ${
+            patientData?.user?.DoctorLname || ""
+          }`.trim();
+          const today = new Date().toLocaleDateString();
+          doc.text(`Name: ${doctorName}`, 20, yPos);
+          yPos += 8;
+          doc.text(`Date: ${today}`, 20, yPos);
+          yPos += 15;
+
+          // Add title
+          doc.setFontSize(20);
+          doc.setFont("helvetica", "bold");
+          doc.text("Patient Report", doc.internal.pageSize.width / 2, yPos, {
+            align: "center",
+          });
+          yPos += 15;
+
+          // Reset font for body text
+          doc.setFontSize(10);
+          doc.setFont("helvetica", "normal");
+
+          // Add patient information in two columns
+          let leftColX = 20;
+          let rightColX = doc.internal.pageSize.width / 2 + 10;
+          const lineHeight = 6;
+
+          const addText = (label, value, x, y) => {
+            const text = `${label}: ${value || "N/A"}`;
+            doc.text(text, x, y);
+          };
+
+          // Left column
+          addText("Name", patientData?.user?.Firstname, leftColX, yPos);
+          yPos += lineHeight;
+          addText("Gender", patientData?.user?.Gender, leftColX, yPos);
+          yPos += lineHeight;
+          addText("ID", patientData?.user?.ID, leftColX, yPos);
+          yPos += lineHeight;
+          addText("Address", patientData?.user?.Address, leftColX, yPos);
+          yPos += lineHeight;
+          addText("Contact", patientData?.user?.Contact, leftColX, yPos);
+
+          // Reset yPos for right column
+          let rightYPos = yPos - lineHeight * 4;
+
+          // Right column
+          addText("Disease", patientData?.user?.Disease, rightColX, rightYPos);
+          rightYPos += lineHeight;
+          addText(
+            "Examination",
+            patientData?.user?.Examination,
+            rightColX,
+            rightYPos
+          );
+          rightYPos += lineHeight;
+          addText(
+            "Marital Status",
+            patientData?.user?.MaritalStatus,
+            rightColX,
+            rightYPos
+          );
+          rightYPos += lineHeight;
+          addText(
+            "Date of Birth",
+            patientData?.user?.PlaceOfBirth,
+            rightColX,
+            rightYPos
+          );
+
+          yPos += 20; // Add some space before treatment plan
+
+          // Add treatment plan
+          doc.setFont("helvetica", "bold");
+          doc.text("Treatment Plan:", 20, yPos);
+          yPos += lineHeight;
+          doc.setFont("helvetica", "normal");
+          doc.text(
+            patientData?.user?.TreatmentPlan || "No treatment plan available",
+            20,
+            yPos,
+            { maxWidth: 170 }
+          );
+          yPos +=
+            doc.getTextDimensions(
+              patientData?.user?.TreatmentPlan || "No treatment plan available",
+              { maxWidth: 170 }
+            ).h + lineHeight;
+
+          // Add patient history
+          doc.setFont("helvetica", "bold");
+          doc.text("Patient History:", 20, yPos);
+          yPos += lineHeight;
+          doc.setFont("helvetica", "normal");
+          const history = document.getElementById("history").value.split("\n");
+          history.forEach((item) => {
+            doc.text(`• ${item}`, 25, yPos, { maxWidth: 165 });
+            yPos += doc.getTextDimensions(item, { maxWidth: 165 }).h + 2;
+          });
+
+          // Save the PDF
+          doc.save("patient_report.pdf");
+        }
+      }
+    </script>
+  </body>
+</html>

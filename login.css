@@ -1,0 +1,181 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Roboto", sans-serif;
+}
+.loginContainer {
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+  background: radial-gradient(circle, #063970, #45709f);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logoimg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  /* background: #000; */
+}
+.logoimg img {
+  width: 80%;
+}
+.loginForm {
+  padding: 20px;
+  /* height: 90vh; */
+  min-height: 70vh;
+  width: 45%;
+  background: white;
+  border-radius: 20px;
+}
+
+.loginForm > form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  color: #063970;
+}
+.loginForm > form > h2 {
+  color: #063970;
+  font-size: 1.5rem;
+}
+.loginFormFields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 90%;
+  margin: auto;
+}
+.loginFormFields > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.loginFormFields div label {
+  text-align: center;
+  color: #063970;
+  font-weight: bold;
+}
+.loginFormFields > div > div {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 70%;
+}
+.ri-user-3-fill,
+.ri-lock-fill {
+  position: absolute;
+  left: 10px;
+  color: rgba(0, 0, 0, 0.3);
+}
+.ri-eye-off-line {
+  position: absolute;
+  right: 10px;
+  color: rgba(0, 0, 0, 0.3);
+}
+.loginFormFields div input {
+  border: none;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px 30px;
+  width: 100%;
+  border-radius: 15px;
+}
+
+.loginBtn {
+  display: flex;
+  justify-content: center;
+}
+.password-wrap {
+  position: relative;
+}
+
+.password-input {
+  padding-right: 30px;
+  position: relative;
+  border: 2px solid red;
+}
+
+.password-wrap i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px; /* Adjust the right position as needed */
+}
+
+.loginBtn button {
+  padding: 8px 20px;
+  background: #063970;
+  color: white;
+  width: 200px;
+  border: none;
+  border-radius: 20px;
+  font-size: 1.4rem;
+}
+
+.reset-button {
+  padding: 8px 20px;
+  background: #063970;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 1.4rem;
+}
+.loginNav {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 876px) {
+  .loginFormFields {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .logoimg {
+    width: 30%;
+  }
+  .logoimg img {
+    width: 200px;
+  }
+  .loginForm {
+    width: 60%;
+  }
+}
+
+@media (max-width: 640px) {
+  .logoimg {
+    display: none;
+  }
+  .loginContainer {
+    justify-content: center;
+  }
+  .loginForm {
+    width: 90%;
+  }
+  .loginForm > form > h2 {
+    font-size: 1.2rem;
+  }
+  .loginFormFields > div > label {
+    text-align: center;
+    font-size: 0.8rem;
+  }
+  .loginBtn button {
+    width: 150px;
+    padding: 10px;
+    font-size: 1rem;
+  }
+  .signupNav p {
+    font-size: 0.8rem;
+  }
+}

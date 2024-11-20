@@ -1,0 +1,78 @@
+<html></html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="welcome.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+  />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"
+  />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class=" welcome-page">
+   <div class="welcome-navbar">
+  <h2 class="welcome-logo">
+    <b>Symptoms AI</b>
+  </h2>
+  <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+  <label for="menu-toggle" class="hamburger">
+    ☰
+  </label>
+  <div class="welcome-nav">
+    <a href="./homepage.html" class="nav-home"><b>Home</b></a>
+    <a href="/patientinfo.html">Patient</a>
+    <a href="/symptoms.html">Symptoms</a>
+    <a href="/contact.html">Help</a>
+    <a href="/login.html">Logout</a>
+  </div>
+</div>
+    <!--  BOTTOM SECTIONS -->
+    <div class="welcome-wrapper">
+      <div class="welcome-section">
+        <div class="welcome-section-header">
+          <h1 id="doctor_name">Loading Name...</h1>
+          <a class="edit-content" href="/editpage.html">
+            <img src="/images/settings.svg" /> Edit your Information
+          </a>
+        </div>
+        <p class="welcome-section-content">
+          Start Diagnose the common disease !
+        </p>
+      </div>
+    <div class="card-grid">
+        <a class="card" href="/patientinfo.html">
+            <h3 class="card-heading">Enter Patient Information</h3>
+            <img src="/images/body.png" alt="body"  class="card-img"/>
+        </a>
+        <a class="card" href="/symptoms.html">
+            <h3>Enter Patient Symptoms </h3>
+                        <img src="/images/symptoms.png" alt="body"  class="card-img"/>
+        </a>
+        <a class="card" href="/diagnoseresult.html">
+            <h3>Get the Medical Report</h3>
+                        <img src="/images/checkup.png" alt="body"  class="card-img"/>
+        </a>
+    </div>
+  </div>
+
+  <script>
+    window.onload = function(){
+      fname = sessionStorage.getItem("Firstname")
+      lname = sessionStorage.getItem('Lastname')
+      if (fname && lname ){
+        name = "Hello Dr. " + fname + " " + lname
+        document.getElementById("doctor_name").textContent = name
+      }else{
+        window.location.href = "login.html";
+      }
+      
+    }
+  </script>
+</body>

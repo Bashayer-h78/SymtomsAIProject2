@@ -1,0 +1,178 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Roboto", sans-serif;
+}
+.signupContainer {
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+
+  background: radial-gradient(circle, #063970, #45709f);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.password-wrap {
+  position: relative;
+}
+
+.password-input {
+  padding-right: 30px; 
+  position: relative;
+  border: 2px solid red;
+}
+
+.password-wrap i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px; /* Adjust the right position as needed */
+}
+
+.logoimg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  /* background: #000; */
+}
+.logoimg img {
+  width: 80%;
+}
+.signupForm {
+  padding: 20px;
+  /* height: 90vh; */
+  width: 45%;
+  background: white;
+  border-radius: 20px;
+}
+
+.signupForm > form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  color: #063970;
+}
+.signupForm > form > h2 {
+  color: #063970;
+  font-size: 1.5rem;
+}
+.signupFormFields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 90%;
+  margin: auto;
+}
+.signupFormFields > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.signupFormFields > div > label {
+  text-align: center;
+  font-weight: bold;
+}
+
+.signupFormFields > div > div {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 70%;
+}
+.ri-mail-line,
+.ri-phone-line,
+.ri-user-3-fill,
+.ri-lock-fill {
+  position: absolute;
+  left: 10px;
+  color: rgba(0, 0, 0, 0.3);
+}
+.ri-eye-off-line {
+  position: absolute;
+  right: 10px;
+  color: rgba(0, 0, 0, 0.3);
+}
+.signupFormFields div input {
+  border: none;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px 30px;
+  width: 100%;
+  border-radius: 15px;
+}
+.passwordConditions > ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.passwordConditions > ul > li {
+  font-size: 0.7rem;
+}
+.signupBtn {
+  display: flex;
+  justify-content: center;
+}
+
+.signupBtn button {
+  padding: 8px 20px;
+  background: #063970;
+  color: white;
+  width: 200px;
+  border: none;
+  border-radius: 20px;
+  font-size: 1.4rem;
+}
+.loginNav {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 876px) {
+  .signupFormFields {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .logoimg {
+    width: 30%;
+  }
+  .logoimg img {
+    width: 200px;
+  }
+  .signupForm {
+    width: 60%;
+  }
+}
+
+@media (max-width: 640px) {
+  .logoimg {
+    display: none;
+  }
+  .signupContainer {
+    justify-content: center;
+  }
+  .signupForm {
+    width: 90%;
+  }
+  .signupForm > form > h2 {
+    font-size: 1.2rem;
+  }
+  .signupFormFields > div > label {
+    text-align: center;
+    font-size: 0.8rem;
+  }
+  .passwordConditions > ul {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+}

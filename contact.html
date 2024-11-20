@@ -1,0 +1,151 @@
+<html></html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="welcome.css" />
+  <link rel="stylesheet" href="symptoms.css" />
+  <link rel="stylesheet" href="contact.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+  />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Unicons CDN Link for Icons -->
+  <link
+    rel="stylesheet"
+    href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css"
+  />
+</head>
+<body>
+  <div class="welcome-page">
+    <div class="welcome-navbar">
+      <h2 class="welcome-logo">
+        <b>Symptoms AI</b>
+      </h2>
+      <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+      <label for="menu-toggle" class="hamburger"> ☰ </label>
+      <div class="welcome-nav">
+        <a href="./homepage.html" class="nav-home"><b>Home</b></a>
+        <a href="/welcome.html">Dashboard</a>
+        <a href="/welcome.html">
+          <img src="/images/profile.png" alt="profile" class="profile-img" />
+        </a>
+      </div>
+    </div>
+
+    <!--    CONTACT PAGE -->
+    <div class="container">
+      <div class="left-panel">
+        <h1>CONTACT US</h1>
+        <p>We're here to help!</p>
+        <p>
+          Whether you have questions about using our symptom checker or simply
+          want to provide feedback, we're just a message or phone call away.
+        </p>
+        <p>
+          Feel free to reach out to us via the contact form below, and we'll get
+          back to you as soon as possible.
+        </p>
+        <div class="contact-info">
+          <span class="image-round">
+            <img src="/images/email.png" alt="email" />
+          </span>
+          <span>SymptomsAI@gmail.com</span>
+        </div>
+        <div class="contact-info">
+          <span class="image-round">
+            <img src="/images/phone.png" alt="email" />
+          </span>
+          <span>+966 111763936</span>
+        </div>
+      </div>
+      <div class="right-panel">
+        <form class="contact-form" id="contactForm">
+          <label>Your Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Your Name"
+            required
+          />
+          <label>Phone Number</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="Phone Number"
+            required
+          />
+          <label>Message</label>
+          <textarea
+            id="message"
+            name="message"
+            placeholder="Type your message here"
+            rows="10"
+            required
+          ></textarea>
+          <div class="button-container">
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
+    <script defer type="text/javascript">
+      (function () {
+        emailjs.init("TCWAd74luO7avHBeR");
+      })();
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document
+          .getElementById("contactForm")
+          .addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            // Get form values
+            var name = document.getElementById("name").value;
+            var phone = document.getElementById("phone").value;
+            var message = document.getElementById("message").value;
+
+            // Prepare template parameters
+            var templateParams = {
+              from_name: name,
+              from_phone: phone,
+              from_message: message,
+              to_email: "symptomsai10@gmail.com",
+            };
+
+            const serviceID = "default_service";
+            const templateID = "template_psbzzsj";
+
+            // Send email using EmailJS
+            emailjs.send(serviceID, templateID, templateParams).then(
+              function (response) {
+                console.log("SUCCESS!", response.status, response.text);
+                alert("Your message has been sent successfully!");
+                document.getElementById("contactForm").reset();
+              },
+              function (error) {
+                console.log("FAILED...", error);
+                alert("Failed to send the message. Please try again later.");
+              }
+            );
+          });
+      });
+    </script>
+  </div>
+</body>

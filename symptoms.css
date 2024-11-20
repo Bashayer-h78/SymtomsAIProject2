@@ -1,0 +1,137 @@
+.symptoms-container {
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  flex: 1 0 0;
+  height: 500px;
+  min-height: 500px;
+}
+
+@media (max-width: 900px) {
+  .symptom-img-container {
+    display: none;
+  }
+}
+
+.symptoms-wrapper {
+  display: flex;
+  gap: 30px;
+}
+
+.symptoms-container h1 {
+  color: #154c79;
+
+  font-family: Poppins;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.content p {
+  font-size: 15px;
+}
+.content .ul-symptoms {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 30px;
+  border-radius: 50px;
+  background: linear-gradient(
+    90deg,
+    #2596be 76.82%,
+    #4ec5e6 101.82%,
+    #2596be 126.82%
+  );
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 768px) {
+  .content .ul-symptoms {
+    max-width: 90%;
+  }
+}
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+}
+
+.content .ul-symptoms li {
+  color: #333;
+  margin: 4px 3px;
+  list-style: none;
+  border-radius: 30px;
+  background: #f2f2f2;
+  padding: 5px 8px 5px 10px;
+
+  fill: #fcfafa;
+
+  stroke-width: 1px;
+  stroke: #858585;
+
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+.content input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+.content .ul-symptoms li i {
+  height: 20px;
+  width: 20px;
+  color: #808080;
+  margin-left: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 50%;
+  background: #dfdfdf;
+  justify-content: center;
+}
+.content .ul-symptoms input {
+  flex: 1;
+  padding: 5px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+.wrapper .details {
+  justify-content: space-between;
+}
+
+.submit-btn {
+  background-color: #1e3a8a;
+  color: white;
+  padding: 10px 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  max-width: 457px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.reset-btn {
+  background-color: #d1d5db;
+  color: #6b7280;
+  padding: 8px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  max-width: 215px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-direction: column;
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="loginContainer">
+      <div class="logoimg"><img src="./imges/logo.png" alt="" /></div>
+      <div class="loginForm">
+        <form id="loginForm" onsubmit="submitForm(event)">
+          <h2>Log in to Symptom AI</h2>
+          <div class="loginFormFields">
+            <div>
+              <label for="uName">Username</label>
+              <div>
+                <i class="ri-user-3-fill"></i>
+                <input type="text" name="username" id="uName" />
+              </div>
+            </div>
+            <div id="passwordField">
+              <label for="password">Password</label>
+              <div class="password-wrap">
+                <i class="ri-lock-fill"></i>
+                <input
+                  type="password"
+                  class="password-input"
+                  name="password"
+                  id="password"
+                />
+                <i
+                  class="ri-eye-off-line"
+                  id="togglePassword"
+                  onclick="togglePasswordVisibility()"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <a href="./forget-password.html" id="forgotPasswordLink"
+              >Forgot password?</a
+            >
+          </div>
+
+          <div class="loginBtn">
+            <button type="submit">Log in</button>
+          </div>
+          <div class="signupNav">
+            <p>
+              You don't have an account?
+              <b><a href="./signup.html">Sign up</a></b>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function submitForm(event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Get input values
+        const username = document.getElementById("uName").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        // Check if username or password is empty
+        if (username === "" || password === "") {
+          alert("Username and password are required.");
+          return;
+        }
+
+        // Make a request to login endpoint
+        fetch("http://localhost:3000/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Invalid username or password.");
+            }
+            // Parse response body as JSON
+            return response.json();
+          })
+          .then((data) => {
+            // Store user details in sessionStorage
+            sessionStorage.setItem("username", username);
+            sessionStorage.setItem("password", password);
+            sessionStorage.setItem("Firstname", data.user.Firstname); // Assuming "Firstname" exists in the response
+            sessionStorage.setItem("Lastname", data.user.Lastname); // Assuming "Lastname" exists in the response
+            window.location.href = "welcome.html";
+          })
+          .catch((error) => {
+            alert(error.message);
+          });
+      }
+
+      function togglePasswordVisibility() {
+        const passwordField = document.getElementById("password");
+        const toggleIcon = document.getElementById("togglePassword");
+
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+          toggleIcon.classList.remove("ri-eye-off-line");
+          toggleIcon.classList.add("ri-eye-line");
+        } else {
+          passwordField.type = "password";
+          toggleIcon.classList.remove("ri-eye-line");
+          toggleIcon.classList.add("ri-eye-off-line");
+        }
+      }
+    </script>
+  </body>
+</html>

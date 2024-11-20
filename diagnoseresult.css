@@ -1,0 +1,67 @@
+.diagnose-container {
+  max-width: 1400px;
+  width: 100%;
+  margin-inline: auto;
+}
+
+.diagnose-heading {
+  color: #fff;
+
+  font-family: Roboto;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: center;
+}
+
+.dignose-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 70%;
+  margin-inline: auto;
+  margin-top: 20px;
+}
+@media screen and (max-width: 768px) {
+  .dignose-input-container {
+    width: 90%;
+  }
+}
+
+.dignose-input-container label {
+  color: #fff;
+
+  font-family: Roboto;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.dignose-input-container input {
+  border-radius: 5px;
+
+  border: 2px solid #858585;
+
+  background: #fff;
+  height: 250px;
+}
+
+.dignose-input-container button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: #1c8eb0;
+  color: white;
+}
+.form-actions-diagnose {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}

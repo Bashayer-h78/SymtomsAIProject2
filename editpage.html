@@ -1,0 +1,203 @@
+<html></html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="welcome.css" />
+  <link rel="stylesheet" href="symptoms.css" />
+  <link rel="stylesheet" href="editpage.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+  />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Unicons CDN Link for Icons -->
+  <link
+    rel="stylesheet"
+    href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css"
+  />
+</head>
+<body>
+  <div class="welcome-page">
+    <div class="welcome-navbar">
+      <h2 class="welcome-logo">
+        <b>Symptoms AI</b>
+      </h2>
+      <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+      <label for="menu-toggle" class="hamburger"> ☰ </label>
+      <div class="welcome-nav">
+        <a href="./homepage.html" class="nav-home"><b>Home</b></a>
+        <a href="/welcome.html">Dashboard</a>
+        <a href="/welcome.html">
+          <img src="/images/profile.png" alt="profile" class="profile-img" />
+        </a>
+      </div>
+    </div>
+    <div class="form-container-edit">
+      <h2>Edit Information</h2>
+      <p
+        style="
+          color: white;
+          margin-bottom: 20px;
+          margin-left: 20px;
+          text-align: right;
+          transform: translateX(-100px);
+        "
+      >
+        
+      </p>
+      <form id="edit-form">
+        <div class="form-group-edit">
+          <div class="form-group-input">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required />
+          </div>
+          <div class="form-group-input">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required />
+          </div>
+        </div>
+
+        <div class="form-group-input">
+          <label for="email">Email</label>
+          <div class="input-wrapper">
+            <input type="email" id="email" name="email" required />
+            <span class="valid-icon" id="email-valid-icon">✅</span>
+          </div>
+        </div>
+        <div class="form-group-input">
+          <label for="address">Address</label>
+          <input type="text" id="address" name="address" />
+        </div>
+        <div class="form-group-input">
+          <label for="contactNumber">Contact Number</label>
+          <input type="text" id="contactNumber" name="contactNumber" />
+        </div>
+        <div class="form-group-edit">
+          <div class="form-group-input">
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" />
+          </div>
+          <div class="form-group-input">
+            <label for="state">State</label>
+            <input type="text" id="state" name="state" />
+          </div>
+        </div>
+        <div class="form-group-input">
+          <label for="password">Password</label>
+          <div class="input-wrapper">
+            <input type="password" id="password" name="password" />
+            <span class="valid-icon" id="password-valid-icon"> ✅ </span>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" id="cancel-btn">Cancel</button>
+          <button type="submit" id="save-btn">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const username = sessionStorage.getItem("username");
+    let currentPassword = ""; // Store current password
+
+    if (!username) {
+        alert("Please log in first.");
+        window.location.href = "login.html"; // Redirect to login if not logged in
+        return;
+    }
+
+    // Fetch user data
+    fetch(`http://localhost:3000/user/${username}`)
+        .then((response) => {
+            if (!response.ok) throw new Error("Failed to fetch user data.");
+            return response.json();
+        })
+        .then((data) => {
+            const user = data.user;
+            document.getElementById("firstName").value = user?.Firstname || "";
+            document.getElementById("lastName").value = user?.Lastname || "";
+            document.getElementById("email").value = user?.Email || "";
+            document.getElementById("address").value = user?.Address || "";
+            document.getElementById("city").value = user?.City || "";
+            document.getElementById("state").value = user?.State || "";
+            document.getElementById("contactNumber").value = user?.PhoneNo || "";
+            currentPassword = user?.Password || ""; // Store the existing password
+        })
+        .catch((error) => alert(error.message));
+
+    // Cancel button functionality
+    document.getElementById("cancel-btn").addEventListener("click", function () {
+        window.location.href = "welcome.html"; // Redirect to welcome page
+    });
+
+    // Handle form submission
+    document.getElementById("edit-form").addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent default form submission
+
+        const updatedFirstName = document.getElementById("firstName").value.trim();
+        const updatedLastName = document.getElementById("lastName").value.trim();
+        const updatedEmail = document.getElementById("email").value.trim();
+        const updatedPhoneNo = document.getElementById("contactNumber").value.trim();
+        const updatedPassword = document.getElementById("password").value.trim();
+        const updatedAddress = document.getElementById("address").value.trim();
+        const updatedCity = document.getElementById("city").value.trim();
+        const updatedState = document.getElementById("state").value.trim();
+
+        // Prepare data to send to the server
+        const requestData = {
+            username: sessionStorage.getItem("username"),
+            firstName: updatedFirstName,
+            lastName: updatedLastName,
+            email: updatedEmail,
+            phoneNo: updatedPhoneNo,
+            address: updatedAddress,
+            city: updatedCity,
+            state: updatedState,
+            password: currentPassword // Default to existing password
+        };
+
+        // If a new password is entered, validate and include it
+        if (updatedPassword) {
+            const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{12,})/;
+            if (!passwordRegex.test(updatedPassword)) {
+                alert("Password must be at least 12 characters long and contain at least one special character and one uppercase letter.");
+                return; // Stop submission if password is invalid
+            }
+            requestData.password = updatedPassword; // Set to new password if valid
+        }
+
+        // Send data to the server
+        fetch("http://localhost:3000/edit-profile", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then((response) => {
+            if (!response.ok) throw new Error("Error updating profile.");
+            return response.json();
+        })
+        .then(() => {
+            alert("Profile updated successfully!");
+            window.location.href = "welcome.html"; // Redirect to welcome page
+        })
+        .catch((error) => alert(error.message));
+    });
+});
+</script>
+   
+  
+      
+ 
+</body>

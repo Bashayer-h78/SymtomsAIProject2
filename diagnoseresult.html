@@ -1,0 +1,112 @@
+<html></html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="welcome.css" />
+  <link rel="stylesheet" href="symptoms.css" />
+  <link rel="stylesheet" href="editpage.css" />
+  <link rel="stylesheet" href="diagnoseresult.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+  />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Unicons CDN Link for Icons -->
+  <link
+    rel="stylesheet"
+    href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css"
+  />
+</head>
+<body>
+  <div class="welcome-page">
+    <div class="welcome-navbar">
+      <h2 class="welcome-logo">
+        <b>Symptoms AI</b>
+      </h2>
+      <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+      <label for="menu-toggle" class="hamburger"> ☰ </label>
+      <div class="welcome-nav">
+        <a href="./homepage.html" class="nav-home"><b>Home</b></a>
+        <a href="/welcome.html">Dashboard</a>
+        <a href="/welcome.html">
+          <img src="/images/profile.png" alt="profile" class="profile-img" />
+        </a>
+      </div>
+    </div>
+    <!--   DIGNOSE RESULT -->
+    <div class="diagnose-container">
+      <h2 class="diagnose-heading">Diagnose Result</h2>
+
+      <div class="dignose-input-container">
+        <label>The Result:</label>
+        <input
+          style="font-size: xx-large; padding: 10px"
+          type="text"
+          spellcheck="false"
+          id="result"
+        />
+      </div>
+      <div class="dignose-input-container">
+        <label>Necessary Examination:</label>
+        <input
+          style="font-size: xx-large; padding: 10px"
+          type="text"
+          spellcheck="false"
+          id="examination"
+        />
+      </div>
+      <div class="dignose-input-container">
+        <div class="form-actions-diagnose">
+          <a href="/symptoms.html"
+            ><button type="button" id="cancel-btn">Edit</button></a
+          >
+          <button
+            type="submit"
+            id="save-btn"
+            onclick="window.location.href = './treatmentplan.html';"
+          >
+            Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.onload = function () {
+      const url = `http://localhost:3000/patient_data/${sessionStorage.getItem(
+        "patient_id"
+      )}`;
+      fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("User Data:", data);
+          document.getElementById("result").value = data.patient.Disease;
+          document.getElementById("examination").value =
+            data.patient.Examination;
+        })
+        .catch((error) => {
+          console.error("Failed to fetch user data:", error);
+        });
+    };
+  </script>
+</body>

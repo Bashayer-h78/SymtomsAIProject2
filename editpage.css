@@ -1,0 +1,93 @@
+.form-container-edit {
+  background: transparent;
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+  margin-inline: auto;
+}
+
+.edit-navbar {
+  margin-top: 150px;
+}
+
+@media screen and (max-width: 768px) {
+  .edit-navbar {
+    margin-top: 100px;
+  }
+}
+.form-container-edit h2 {
+  margin: 0 0 20px;
+
+  color: #fff;
+
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.form-group-edit {
+  position: relative;
+  display: flex;
+  gap: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .form-group-edit {
+    flex-direction: column;
+  }
+}
+.form-container-edit label {
+  display: block;
+  text-align: left;
+  color: #fff;
+}
+.form-group-input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.form-container-edit input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.valid-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: green;
+  display: none;
+}
+
+.form-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.form-container-edit button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#save-btn {
+  background-color: #1c8eb0;
+  color: white;
+  margin-left: 10px;
+}
+
+#cancel-btn {
+  background-color: #1c8eb0;
+  color: white;
+}

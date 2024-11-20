@@ -1,0 +1,89 @@
+.form-container {
+  background-color: #003c75;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  color: white;
+  width: 350px;
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-container input[type="text"],
+select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.form-container input[type="radio"] {
+  margin-right: 5px;
+}
+
+.gender {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.gender label {
+  color: white;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-control-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.radio-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.status-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+}
+
+.form-right h4 {
+  color: #fff;
+
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.checkbox-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+}
+.checkbox-container label {
+  color: #000000;
+  font-weight: 600;
+}
+
+.checkbox-container input {
+  width: auto;
+}
